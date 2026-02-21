@@ -1,0 +1,9 @@
+data:
+  path: data/spy_yahoo.csv
+
+strategy:
+  lookback: 20
+  threshold: 0.05
+
+backtest:
+  transaction_cost: 0.0005
