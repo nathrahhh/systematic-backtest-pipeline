@@ -1,7 +1,10 @@
 import pandas as pd
 
 def load_data(path):
-    df = pd.read_csv(path, parse_dates=["Date"])
-    df = df.sort_values("Date")
-    df.set_index("Date", inplace=True)
+    df = pd.read_csv(path)
+
+    # Convert price columns to numeric
+    for col in ["Open", "High", "Low", "Close", "Volume"]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
     return df

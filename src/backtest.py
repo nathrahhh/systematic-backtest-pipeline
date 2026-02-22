@@ -19,9 +19,28 @@ def build_positions(df, holding_period=5):
 
 def compute_strategy_returns(df, cost_per_trade=0.001):
     df = df.copy()
+
     df["Return"] = df["Close"].pct_change()
     df["StrategyReturn"] = df["Position"].shift(1) * df["Return"]
     df["Turnover"] = df["Position"].diff().abs()
     df["Cost"] = df["Turnover"] * cost_per_trade
     df["NetStrategyReturn"] = df["StrategyReturn"] - df["Cost"]
+
+    return df
+
+
+def run_backtest(df, signals, backtest_config):
+    df = df.copy()
+    df["Signal"] = signals
+
+    df = build_positions(
+        df,
+        holding_period=backtest_config["holding_period"]
+    )
+
+    df = compute_strategy_returns(
+        df,
+        cost_per_trade=backtest_config["cost"]
+    )
+
     return df
