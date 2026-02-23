@@ -2,10 +2,10 @@ data:
   path: data/spy_yahoo.csv
 
 strategy:
-  lookback: 20
-  threshold: 0.05
-  atr_window: 20 
-  k: 1
+  type: "mean_reversion"   # or "mean_reversion"
+  k: 1.5
+  atr_window: 20
+
 
 backtest:
   holding_period: 5
